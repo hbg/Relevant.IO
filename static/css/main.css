@@ -1,0 +1,33 @@
+body.home, html {
+    height: 100%;
+    background: #b24592 !important; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #b24592, #f15f79) !important; /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #b24592, #f15f79) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.search-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
+.forced-center {
+	margin: 0 auto !important;
+	display: block;
+}
+.round {
+    border-radius: 20px;
+}
+#search-btn {
+    margin: 0 auto;
+    display: block;
+    background: transparent;
+    border: 3px solid white;
+}
+input#search {
+    background: white;
+    border: 0px;
+    text-align: center;
+    border-radius: 20px;
+}
