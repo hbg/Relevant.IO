@@ -1,6 +1,5 @@
-$(document).ready(function() {
-    $('#search-btn').on("click",function() {
-        query = $("#search").val();
+function conductQuery() {
+    query = $("#search").val();
         console.log("Search query:: " + query);
         if (query.length == 0) {
             M.toast({html: 'Please enter something!'})
@@ -8,10 +7,10 @@ $(document).ready(function() {
         else {
             var arr = query.split(" ");
             let q = "";
-            let search= "";
+            let search, since = "";
             for (var i=0; i<arr.length; i++) {
                 let item = arr[i];
-                //  Some really bad practices below
+                //  Some really bad practices below --> Specify "SINCE" & "COUNT"
                 if (!(item.includes("since=") || item.includes("count=") && item.length > 0)) {
                     if(item.includes("search="))
                         search += item.split("search=")[1].trim() + "%20";
@@ -24,14 +23,23 @@ $(document).ready(function() {
                 }
                 else if (item.includes("count=")) { // Optional
                     count = item.split("count=")[1].trim()
-                    console.log(count);
                     q += "&count=" + count;
                 }
                 console.log(search + q);
             }
-
             M.toast({html: 'Finding results...'})
-            window.location = "/search?q=" + search + q;
+            let format_string = ("/search?q=" + search + q);
+            window.location = format_string.replace("undefined","")
         }
+}
+$(document).ready(function() {
+    $('#search-btn').on("click",function() {
+        conductQuery();
     });
+});
+
+$(document).on('keypress',function(e) {
+    if(e.which == 13) {
+        conductQuery();
+    }
 });

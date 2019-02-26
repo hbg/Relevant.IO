@@ -9,7 +9,7 @@ def home():
 def fetch():
     unformatted_query = request.args.get('q')
     query = "q="+str(request.args.get('q'))+"%20&result_type=popular"
-    info={
+    info = {
         "items" : [],
         "urls" : [],
         "names" : []
@@ -24,13 +24,15 @@ def fetch():
         query+= "&count=25"
     search = api.GetSearch(raw_query=query)  # Replace happy with your search
     for tweet in search:
+        print(tweet)
+        # Low to high interactivity... Twitter already sorted out, but now it's time to add Facebook & Snapchat
         info["items"].append(tweet.text)
         t = json.loads(str(tweet))
         try:
             info["urls"].append(t['urls'][0]["expanded_url"])
             print(t['urls'][0]["expanded_url"])
         except:
-            info["urls"].append("")
+            info["urls"].append("#")
             print("Not found")
         info["names"].append(t['user']['name'])
     return render_template("results.html", name="Results", query=unformatted_query, items=info["items"], urls=info["urls"], names=info["names"])
