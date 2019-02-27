@@ -1,4 +1,10 @@
+var x, y = 0
+function setPosition(pos) {
+    x = pos.coords.latitude;
+    y = pos.coords.longitude;
+}
 function conductQuery() {
+
     query = $("#search").val();
         console.log("Search query:: " + query);
         if (query.length == 0) {
@@ -28,11 +34,14 @@ function conductQuery() {
                 console.log(search + q);
             }
             M.toast({html: 'Finding results...'})
-            let format_string = ("/search?q=" + search + q);
+            let format_string = ("/search?q=" + search + q + "&loc=" + x + "," + y);
             window.location = format_string.replace("undefined","")
         }
 }
 $(document).ready(function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(setPosition);
+    }
     $('#search-btn').on("click",function() {
         conductQuery();
     });
